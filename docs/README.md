@@ -14,11 +14,11 @@ MVP LINE -----------------------------------------
 
 WIREFRAMES
 ---
-![Compare Books] (https://github.com/jacobmink/project3_bookMatching/blob/master/IMG_20190211_091729.jpg)
+![Compare Books] (https://github.com/jacobmink/project3_bookMatching/blob/master/docs/IMG_20190211_091729.jpg)
 
-![User Profile] (https://github.com/jacobmink/project3_bookMatching/blob/master/IMG_20190211_091734.jpg)
+![User Profile] (https://github.com/jacobmink/project3_bookMatching/blob/master/docs/IMG_20190211_091734.jpg)
 
-![Login] (https://github.com/jacobmink/project3_bookMatching/blob/master/IMG_20190211_091738.jpg)
+![Login] (https://github.com/jacobmink/project3_bookMatching/blob/master/docs/IMG_20190211_091738.jpg)
 
 
 
