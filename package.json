@@ -18,6 +18,8 @@
   "homepage": "https://github.com/jacobmink/project3_bookMatching#readme",
   "dependencies": {
     "body-parser": "^1.18.3",
+    "cors": "^2.8.5",
+    "dotenv": "^6.2.0",
     "express": "^4.16.4",
     "express-session": "^1.15.6",
     "mongoose": "^5.4.11"
