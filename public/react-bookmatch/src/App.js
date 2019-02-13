@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
-import BookList from './BookList';
+import BookContainer from './BookContainer';
 import Login from './Login';
-
-const API_KEY = 'iDqJvSmeFc0pM6g4qThg';
 
 class App extends Component {
   constructor(){
@@ -25,7 +23,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        {this.state.loggedIn ? <BookList />:<Login handleLogin={this.handleLogin} />}
+        {this.state.loggedIn ? <BookContainer />:<Login handleLogin={this.handleLogin} />}
         
         
 

@@ -39,10 +39,12 @@ app.use(cors(corsOptions));
 // }))
 
 const usersController = require('./controllers/usersController');
-const authController = require('./controllers/authController')
+const authController = require('./controllers/authController');
+const booksController = require('./controllers/booksController');
 
 app.use('/users', usersController);
 app.use('/auth', authController);
+app.use('/books', booksController);
 
 
 
