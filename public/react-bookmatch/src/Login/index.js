@@ -16,7 +16,7 @@ class Login extends Component{
     handleSubmit = async (e)=>{
         e.preventDefault();
         try{
-            const apiResponse = await fetch('http://localhost:9000/auth', {
+            const apiResponse = await fetch('http://localhost:9000/auth/login', {
                 method: "POST",
                 body: JSON.stringify(this.state),
                 headers: {
@@ -27,8 +27,8 @@ class Login extends Component{
                 throw Error(apiResponse.statusText);
             }
             const parsed = await apiResponse.json();
-            console.log(parsed, ' parsed response')
 
+            this.props.handleLogin();
 
         }catch(err){
             console.log(err);
@@ -37,11 +37,13 @@ class Login extends Component{
     }
     render(){
         return(
-            <form onSubmit={this.handleSubmit}>
-                <input type="text" name="username" placeholder="Username" onChange={this.handleChange}/>
-                <input type="password" name="password" placeholder="Password" onChange={this.handleChange}/>
-                <input type="submit"/>
-            </form>
+            <div>
+                <form onSubmit={this.handleSubmit}>
+                    <input type="text" name="username" placeholder="Username" onChange={this.handleChange}/>
+                    <input type="password" name="password" placeholder="Password" onChange={this.handleChange}/>
+                    <input type="submit"/>
+                </form>
+            </div>
         )
     }
 }

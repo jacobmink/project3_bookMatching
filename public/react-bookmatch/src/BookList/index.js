@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
+import SearchBar from '../SearchBar';
 const convert = require('xml-js');
-const goodReadsJSONResponse = require('goodreads-json-api');
 const https = require('https');
 
 const API_KEY = 'iDqJvSmeFc0pM6g4qThg'
+// const usernameFormat = 'https://www.goodreads.com/user/show/?key=BLAH&username=greggmarshall&format=xml';
 
 class BookList extends Component{
     constructor(){
@@ -13,23 +14,20 @@ class BookList extends Component{
             userId: '7286856'
         }
     }
-    getBooks = async ()=>{
-        https.get(`https://cors-anywhere.herokuapp.com/https://www.goodreads.com/review/list/${this.state.userId}.xml?v=2&shelf=read&per_page=200&key=${API_KEY}`, (res) => {
+    getBooks = async (title)=>{
+        https.get(`https://cors-anywhere.herokuapp.com/https://www.goodreads.com/search/index.xml?key=${API_KEY}&q=${title}`, (res) => {
         const options = {
             xml: {
                 normalizeWhitespace: true
             }
         }
-        const statusCode = res.statusCode;
-        const contentType = res.headers['content-type'];
         let error;
-        if (statusCode !== 200) {
+        if (res.statusCode !== 200) {
             error = new Error('Request Failed.\n' +
-                `Status Code: ${statusCode}`);
+                `Status Code: ${res.statusCode}`);
         }
         if (error) {
             console.log(error.message);
-            // consume response data to free up memory
             res.resume();
             return;
         }
@@ -41,8 +39,7 @@ class BookList extends Component{
         res.on('end', () => {
             try {
                 const parsed = convert.xml2json(rawData, {compact: true, spaces: 4});
-                const reviews = JSON.parse(parsed).GoodreadsResponse.reviews.review;
-                // console.log(JSON.parse(parsed).GoodreadsResponse);
+                const reviews = JSON.parse(parsed).GoodreadsResponse.search.results.work;
 
                 this.setState({
                     bookList: reviews
@@ -55,31 +52,31 @@ class BookList extends Component{
         }).on('error', (e) => {
             console.log(`Got error: ${e.message}`);
         });
-
-       
-    }
-    componentDidMount(){
-        this.getBooks();
     }
     render(){
-        console.log(this.state);
-        const bookArray = this.state.bookList.map((book, i)=>{
+        console.log(this.state.bookList);
+        const bookArray = this.state.bookList === undefined ? <h1>Oops! That book title wasn't found...</h1> : this.state.bookList.map((book, i)=>{
             return(
                 <li key={i}>
-                    {book.book.title._text} <br/>
-                    <small>by: {book.book.authors.author.name._text}</small>
+                    <img src={book.best_book.small_image_url._text} alt={book.best_book.small_image_url._text}/>
+                    <p>
+                        {book.best_book.title._text} <br/>
+                        <small>by {book.best_book.author.name._text}</small> 
+                    </p>
                 </li>
             )
         })
+        
         return(
             <div>
-                <h1>These are your books</h1>
-                <ul>
+                <SearchBar getBooks={this.getBooks} />
+                <h1>Search Results for ""</h1>
                     {bookArray}
-                </ul>
             </div>
         )
     }
 }
+
+
 
 export default BookList;
