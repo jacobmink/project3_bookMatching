@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import SearchBar from '../SearchBar';
 import BookListing from '../BookListing';
+import Header from '../Header';
 const convert = require('xml-js');
 const https = require('https');
 
@@ -80,9 +81,9 @@ class BookContainer extends Component{
     }
     addBook = async (data)=>{
         try{
-            const response = await fetch('http://localhost:9000/books', {
+            const response = await fetch(`http://localhost:9000/books`, {
                 method: "POST",
-                mode: 'cors',
+                credentials: 'include',
                 body: JSON.stringify(data),
                 headers: {
                     'Content-Type': 'application/json'
@@ -92,18 +93,23 @@ class BookContainer extends Component{
                 throw Error(response.statusText);
             }
             const parsed = await response.json();
-
-            console.log(parsed, ' parsed response to adding book to db');
-
-
+            console.log('added ', parsed, ' to database');
         }catch(err){
             console.log(err);
             return err;
         }
     }
-    deleteBook = async (data)=>{
+    deleteBook = async (id)=>{
         try{
-            const deletedBook = await fetch('http://localhost:9000/books/')
+            const deletedBook = await fetch(`http://localhost:9000/books/${id}`, {
+                method: "DELETE",
+                credentials: 'include'
+            })
+
+            if(!deletedBook.ok){
+                throw Error(deletedBook.statusText);
+            }
+            const parsed = await deletedBook.json();
         }catch(err){
             console.log(err);
             return err;
@@ -124,7 +130,7 @@ class BookContainer extends Component{
         return(
             <div className="book-container">
                 <SearchBar getBooks={this.getGoogleBooks} />
-                {this.state.bookList ? <h1>Search Results for "{this.state.searchTerm}"</h1> : null}
+                {this.state.bookList.length > 0 ? <h1>Search Results for "{this.state.searchTerm}"</h1> : null}
                 {bookArray}
             </div>
         )

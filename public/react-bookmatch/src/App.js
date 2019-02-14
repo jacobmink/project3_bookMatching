@@ -1,35 +1,59 @@
 import React, { Component } from 'react';
 import './App.css';
 import BookContainer from './BookContainer';
+import BooksInDatabase from './BooksInDatabase';
+import Profile from './Profile';
 import Login from './Login';
+import Header from './Header';
+import { Route, Switch, withRouter } from 'react-router-dom';
 
-class App extends Component {
-  constructor(){
-    super();
+const My404 = ()=>{
+  return(
+    <div>
+      You are lost!!!
+    </div>
+  )
+}
+
+class App extends Component{
+  constructor(props){
+    super(props);
     this.state = {
-      isAuthenticated: false,
-      loggedIn: false,
-      user: null,
-      token: ''
+      user: {}
     }
   }
-  handleLogin = ()=>{
-
-
+  getUserInfo = (userInfo)=>{
     this.setState({
-      loggedIn: true
+      user: userInfo
     })
   }
-  render() {
-    return (
-      <div className="App">
-        {this.state.loggedIn ? <BookContainer />:<Login handleLogin={this.handleLogin} />}
-        
-        
-
-      </div>
-    );
+  logout = async ()=>{
+    try{
+      await fetch('http://localhost:9000/auth/logout', {
+        method: 'GET',
+        credentials: 'include'
+      })
+      this.props.history.push('/')
+    }catch(err){
+      console.log(err);
+      return err;
+    }
+  }
+  render(){
+    return(
+      <main className="App">
+      <Header logout={this.logout}/>
+      <Switch>
+        <Route exact path="/" render={props => <Login getUserInfo={this.getUserInfo}/> } />
+        <Route exact path="/profile" render={props => <Profile user={this.state.user}/> } />
+        <Route exact path="/books" render={props => <BookContainer user={this.state.user}/> } />
+        <Route exact path="/booksindb" render={props => (<BooksInDatabase user={this.state.user}/>) } />
+        <Route component={ My404 } />
+      </Switch>
+    </main>
+    )
+    
   }
 }
 
-export default App;
+export default withRouter(App);

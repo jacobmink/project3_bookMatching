@@ -8,4 +8,10 @@
 
 .book-container li{
   display: inline-block;
+  margin: 3px;
+}
+
+.header li{
+  display: inline-block;
+  margin: 3px;
 }

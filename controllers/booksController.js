@@ -1,12 +1,17 @@
 const express = require('express');
 const router = express.Router();
 const Book = require('../models/book');
+const User = require('../models/user');
 
 router.route('/')
     .get(async (req,res)=>{
         try{
         const allBooks = await Book.find();
-        console.log(allBooks, ' this is all books')
+        console.log(allBooks, ' this is all books');
+        res.json({
+            status: 200,
+            data: allBooks
+        });
 
         }catch(err){
             console.log(err);
@@ -15,11 +20,21 @@ router.route('/')
     })
     .post(async (req,res)=>{
         try{
-            const newBook = await Book.findOrCreate({title: req.body.title}, req.body);
-            res.json({
-                status: 200,
-                data: newBook
-            });
+            const foundUser = await User.findById(req.session.userId);
+            const addBook = await Book.findOrCreate({"title": req.body.title}, req.body);
+            console.log(addBook, '  added Book thing');
+            if(foundUser){
+                foundUser.likedBooks.push(addBook.doc._id);
+                await foundUser.save();
+                res.json({
+                    status: 200,
+                    data: addBook
+                });
+            console.log(foundUser, '  found user')
+            }else{
+                console.log('cant find user')
+            }
+            
         }catch(err){
             console.log(err);
             res.send(err);

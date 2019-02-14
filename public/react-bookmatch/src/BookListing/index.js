@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 
 class BookListing extends Component{
     constructor(props){
@@ -25,4 +26,4 @@ class BookListing extends Component{
         )
     }
 }
-export default BookListing;
+export default withRouter(BookListing);

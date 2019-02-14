@@ -3,6 +3,14 @@ const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const session = require('express-session');
+const MongoDBStore = require('connect-mongodb-session')(session);
+const store = new MongoDBStore({
+    uri: process.env.MONGODB_URI, collection: 'mySessions'
+});
+
+store.on('error', (err)=>{
+    console.log(err);
+})
 // const passport = require('passport');
 // const OAuth2Strategy = require('passport-oauth').OAuth2Strategy;
 
@@ -14,7 +22,8 @@ require('dotenv').config();
 app.use(session({
     secret: 'fudgesicle',
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false,
+    store: store
 }));
 // app.use(passport.initialize());
 // app.use(passport.session());

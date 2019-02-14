@@ -1,12 +1,16 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/user');
+const Book = require('../models/book');
 
 router.route('/')
     .get(async (req,res)=>{
         try{
-        const allUsers = await User.find();
-
+            const allUsers = await User.find();
+            res.json({
+                status: 200,
+                data: allUsers
+            })
         }catch(err){
             console.log(err);
             res.send(err);
@@ -28,11 +32,12 @@ router.route('/')
 router.route('/:id')
     .get(async (req,res)=>{
         try{
-            const foundUser = await User.findById(req.params.id);
+            const foundUser = await User.findById(req.params.id).populate('likedBooks');
             res.json({
                 status: 200,
                 data: foundUser
             })
+            console.log(req.session, '      this is session');
         }catch(err){
             console.log(err);
             res.send(err);
