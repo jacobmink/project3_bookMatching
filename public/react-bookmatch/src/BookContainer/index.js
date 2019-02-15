@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import SearchBar from '../SearchBar';
 import BookListing from '../BookListing';
-import Header from '../Header';
-const convert = require('xml-js');
-const https = require('https');
+// const convert = require('xml-js');
+// const https = require('https');
 
 
 const googleApiKey = 'AIzaSyD5zcjV-lFByHtpi7rTPMN-i-fQrlKtepw';
