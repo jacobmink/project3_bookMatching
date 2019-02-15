@@ -30,7 +30,7 @@ class App extends Component{
   }
   logout = async ()=>{
     try{
-      await fetch('http://localhost:9000/auth/logout', {
+      await fetch(`${process.env.REACT_APP_BACKEND}/auth/logout`, {
         method: 'GET',
         credentials: 'include'
       })
