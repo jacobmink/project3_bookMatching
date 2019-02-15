@@ -78,7 +78,7 @@ class BookContainer extends Component{
     }
     addBook = async (data)=>{
         try{
-            const response = await fetch(`http://localhost:9000/books`, {
+            const response = await fetch(process.env.REACT_APP_BACKEND, {
                 method: "POST",
                 credentials: 'include',
                 body: JSON.stringify(data),
@@ -98,7 +98,7 @@ class BookContainer extends Component{
     }
     deleteBook = async (id)=>{
         try{
-            const deletedBook = await fetch(`http://localhost:9000/books/${id}`, {
+            const deletedBook = await fetch(`${process.env.REACT_APP_BACKEND}/books/${id}`, {
                 method: "DELETE",
                 credentials: 'include'
             })

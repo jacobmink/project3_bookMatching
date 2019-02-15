@@ -5,6 +5,7 @@ import BooksInDatabase from './BooksInDatabase';
 import Profile from './Profile';
 import Login from './Login';
 import Header from './Header';
+import Footer from './Footer';
 import { Route, Switch, withRouter } from 'react-router-dom';
 
 const My404 = ()=>{
@@ -52,6 +53,7 @@ class App extends Component{
         <Route component={ My404 } />
       </Switch>
       }
+      <Footer />
     </main>
     )
     

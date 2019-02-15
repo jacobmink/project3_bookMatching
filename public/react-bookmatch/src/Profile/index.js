@@ -16,7 +16,7 @@ class Profile extends Component{
     }
     getUser = async (id)=>{
         try{
-            const foundUser = await fetch(`http://localhost:9000/users/${id}`, {
+            const foundUser = await fetch(`${process.env.REACT_APP_BACKEND}/users/${id}`, {
             method: 'GET',
             credentials: 'include'
             })
@@ -35,7 +35,7 @@ class Profile extends Component{
     }
     deleteUser = async (id)=>{
         try{
-            const response = await fetch(`http://localhost:9000/users/${id}`, {
+            const response = await fetch(`${process.env.REACT_APP_BACKEND}/users/${id}`, {
                 method: 'DELETE',
                 credentials: 'include'
             });
@@ -61,7 +61,7 @@ class Profile extends Component{
     editUser = async (data, e)=>{
         e.preventDefault();
         try{
-            const response = await fetch(`http://localhost:9000/users/${this.state.user._id}`, {
+            const response = await fetch(`h${process.env.REACT_APP_BACKEND}/users/${this.state.user._id}`, {
                 method: 'PUT',
                 credentials: 'include',
                 body: JSON.stringify({"username":data}),
@@ -90,7 +90,7 @@ class Profile extends Component{
         }
     }
     deleteBook = async (id)=>{
-        const response = await fetch(`http://localhost:9000/users/books/${id}`, {
+        const response = await fetch(`${process.env.REACT_APP_BACKEND}/users/books/${id}`, {
             method: 'DELETE',
             credentials: 'include'
         })

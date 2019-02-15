@@ -9,7 +9,7 @@ class BooksInDatabase extends Component{
     }
     getDbBooks = async ()=>{
         try{
-            const response = await fetch('http://localhost:9000/books', {
+            const response = await fetch(`${process.env.REACT_APP_BACKEND}/books`, {
                 method: 'GET',
                 credentials: 'include'
             });
@@ -28,7 +28,7 @@ class BooksInDatabase extends Component{
     addBook = async (data)=>{
         try{
             console.log(data);
-            const response = await fetch(`http://localhost:9000/books`, {
+            const response = await fetch(`${process.env.REACT_APP_BACKEND}/books`, {
                 method: "POST",
                 credentials: 'include',
                 body: JSON.stringify(data),
@@ -48,7 +48,7 @@ class BooksInDatabase extends Component{
     }
     deleteBook = async (id)=>{
         try{
-            const response = await fetch(`http://localhost:9000/books/${id}`, {
+            const response = await fetch(`${process.env.REACT_APP_BACKEND}/books/${id}`, {
                 method: 'DELETE',
                 credentials: 'include'
             });

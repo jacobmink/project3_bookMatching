@@ -13,7 +13,7 @@ class Registration extends Component{
     handleSubmit = async (e)=>{
         e.preventDefault();
         try{
-            const response = await fetch('http://localhost:9000/auth/registration', {
+            const response = await fetch(`${process.env.REACT_APP_BACKEND}/auth/registration`, {
                 method: 'POST',
                 credentials: 'include',
                 body: JSON.stringify(this.state),
