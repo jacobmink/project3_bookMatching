@@ -61,7 +61,7 @@ class Profile extends Component{
     editUser = async (data, e)=>{
         e.preventDefault();
         try{
-            const response = await fetch(`h${process.env.REACT_APP_BACKEND}/users/${this.state.user._id}`, {
+            const response = await fetch(`${process.env.REACT_APP_BACKEND}/users/${this.state.user._id}`, {
                 method: 'PUT',
                 credentials: 'include',
                 body: JSON.stringify({"username":data}),

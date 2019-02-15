@@ -78,7 +78,7 @@ class BookContainer extends Component{
     }
     addBook = async (data)=>{
         try{
-            const response = await fetch(process.env.REACT_APP_BACKEND, {
+            const response = await fetch(`${process.env.REACT_APP_BACKEND}/books`, {
                 method: "POST",
                 credentials: 'include',
                 body: JSON.stringify(data),
