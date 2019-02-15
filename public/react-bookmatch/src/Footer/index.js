@@ -2,13 +2,13 @@ import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { PromiseProvider } from 'mongoose';
 
-const Header = (props)=>{
+const Footer = (props)=>{
     return(
         <div className="header">
             <ul>
-                <li><Link to="/profile">My Profile</Link></li>
-                <li><Link to="/booksindb">Books in Database</Link></li>
-                <li><Link to="/books">Search for Books</Link></li>
+                <li>&copy; 2019 Jacob Mink</li>
+                <li><Link to="/profile">Contact</Link></li>
+                <li><Link to="/booksindb">About</Link></li>
                 <li><button onClick={props.logout}>Logout</button></li>
             </ul>
             
@@ -16,4 +16,4 @@ const Header = (props)=>{
     )
 }
 
-export default withRouter(Header);
+export default withRouter(Footer);

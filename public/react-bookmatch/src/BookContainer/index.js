@@ -65,8 +65,6 @@ class BookContainer extends Component{
             }
 
             const parsed = await foundBook.json();
-            console.log("DID THE SEARCH");
-            console.log(parsed.items);
             this.setState({
                 bookList: parsed.items,
                 searchTerm: searchTerm,
@@ -115,10 +113,7 @@ class BookContainer extends Component{
         }
     }
     render(){
-        console.log(this.state);
         const bookArray = this.state.bookList === undefined ? <h1>Oops! That book title wasn't found...</h1> : this.state.bookList.map((book, i)=>{
-            console.log("MAPPING AGAIN");
-            console.log(book)
             return(
                 <li key={book.id}>
                     <BookListing addBook={this.addBook} book={book}/>

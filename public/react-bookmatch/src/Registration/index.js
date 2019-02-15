@@ -53,7 +53,7 @@ class Registration extends Component{
                 <form onSubmit={this.handleSubmit}>
                     <input type="text" name="username" onChange={this.handleChange} placeholder="Create a username"/>
                     <input type="password" name="password" onChange={this.handleChange} placeholder="Create a password"/>
-                    <input type="submit" value="Create your account"/>
+                    <button type="submit">Register your account</button>
                 </form>
             </div>
         )

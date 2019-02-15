@@ -10,7 +10,8 @@ class Profile extends Component{
             newUsername: '',
             user: this.props.user,
             userData: '',
-            showModal: false
+            showModal: false,
+            message: ''
         }
     }
     getUser = async (id)=>{
@@ -72,10 +73,15 @@ class Profile extends Component{
                 throw Error(response.statusText);
             }
             const parsed = await response.json();
-            console.log(parsed, '   parsed edit data');
+            if(parsed.code && parsed.code === 11000){
+                this.setState({
+                    message: 'This username is already taken! Try again.'
+                })
+            }
             this.setState({
                 showModal: false,
-                username: parsed.data.username
+                username: parsed.data.username,
+                message: ''
             })
 
         }catch(err){
@@ -115,7 +121,8 @@ class Profile extends Component{
         return(
             <div>
                 <h1>{this.state.username}'s Profile</h1>
-                <button onClick={this.showModal} >Edit Profile</button>
+                <button onClick={this.showModal} >Edit Profile</button> <br/>
+                {this.state.message} <br/>
                 {this.state.showModal ? <EditUser editUser={this.editUser} handleEditInput={this.handleEditInput} username={this.state.username} newUsername={this.state.newUsername}/> : null}
                 <button onClick={this.deleteUser.bind(null, this.state.user._id)} >Delete your Account</button>
                 <h3>Your Favorite Books</h3>  <br/> 

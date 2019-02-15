@@ -43,6 +43,7 @@ class App extends Component{
     return(
       <main className="App">
       <Header logout={this.logout}/>
+      {JSON.stringify(this.state.user) === "{}" ?  <Login getUserInfo={this.getUserInfo}/>: 
       <Switch>
         <Route exact path="/" render={props => <Login getUserInfo={this.getUserInfo}/> } />
         <Route exact path="/profile" render={props => <Profile user={this.state.user}/> } />
@@ -50,6 +51,7 @@ class App extends Component{
         <Route exact path="/booksindb" render={props => (<BooksInDatabase user={this.state.user}/>) } />
         <Route component={ My404 } />
       </Switch>
+      }
     </main>
     )
     

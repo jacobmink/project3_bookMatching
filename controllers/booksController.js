@@ -23,7 +23,7 @@ router.route('/')
             const addBook = await Book.findOrCreate({"title": req.body.title}, req.body);
             console.log(addBook, '  added Book thing');
             if(foundUser){
-                foundUser.likedBooks.push(addBook.doc._id);
+                foundUser.likedBooks.addToSet(addBook.doc._id);
                 await foundUser.save();
                 res.json({
                     status: 200,

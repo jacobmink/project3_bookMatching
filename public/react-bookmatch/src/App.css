@@ -26,6 +26,10 @@ body{
   display: block;
 }
 
+.header{
+  border-bottom: 2px solid grey;
+}
+
 .header li{
   display: inline-block;
   margin: 3px;
@@ -36,6 +40,7 @@ a{
 }
 
 button{
+  border-radius: 5px;
   font-size: 1em;
   height: 30px;
   background: blue;
