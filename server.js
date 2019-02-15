@@ -38,7 +38,7 @@ app.use(session({
 // app.use(passport.session());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
-app.use(express.static(path.join(_dirname, 'public/react-bookmatch/build')));
+app.use(express.static(path.join(__dirname, 'public/react-bookmatch/build')));
 
 
 // passport.use('provider', new OAuth2Strategy({
@@ -60,7 +60,7 @@ app.use('/books', booksController);
 
 
 app.get('*', (req,res)=>{
-    res.sendFile(path.join(_dirname+'/public/react-bookmatch/build/index.html'));
+    res.sendFile(path.join(__dirname+'/public/react-bookmatch/build/index.html'));
 });
 
 
