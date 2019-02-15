@@ -120,7 +120,7 @@ class Profile extends Component{
         });
         return(
             <div>
-                <h1>{this.state.username}'s Profile</h1>
+                <h2>{this.state.username}'s Profile</h2>
                 <button onClick={this.showModal} >Edit Profile</button> <br/>
                 {this.state.message} <br/>
                 {this.state.showModal ? <EditUser editUser={this.editUser} handleEditInput={this.handleEditInput} username={this.state.username} newUsername={this.state.newUsername}/> : null}
