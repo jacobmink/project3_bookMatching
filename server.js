@@ -19,6 +19,14 @@ require('dotenv').config();
 // require('./passport/serializing');
 // require('./passport/oauth-config');
 
+const corsOptions = {
+    origin: 'http://localhost:3000',
+    credentials: true,
+    optionsSuccessStatus: 200
+}
+app.use(cors(corsOptions));
+
+
 app.use(session({
     secret: 'fudgesicle',
     resave: false,
@@ -31,12 +39,6 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use(express.static('public'))
 
-const corsOptions = {
-    origin: 'http://localhost:3000',
-    credentials: true,
-    optionsSuccessStatus: 200
-}
-app.use(cors(corsOptions));
 
 // passport.use('provider', new OAuth2Strategy({
 //     authorizationURL: 'https://www.goodreads.com/oauth/authorize',

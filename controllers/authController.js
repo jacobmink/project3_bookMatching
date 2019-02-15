@@ -23,7 +23,6 @@ router.post('/login', async (req,res)=>{
                     data: 'login successful',
                     info: user
                 })
-                console.log(req.session, ' this is session');
             }else{
                 res.json({
                     status: 200,

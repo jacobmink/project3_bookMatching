@@ -63,7 +63,7 @@ class Profile extends Component{
             const response = await fetch(`http://localhost:9000/users/${this.state.user._id}`, {
                 method: 'PUT',
                 credentials: 'include',
-                body: JSON.stringify(data),
+                body: JSON.stringify({"username":data}),
                 headers: {
                     'Content-Type': 'application/json'
                 }
@@ -75,7 +75,7 @@ class Profile extends Component{
             console.log(parsed, '   parsed edit data');
             this.setState({
                 showModal: false,
-                username: parsed.data
+                username: parsed.data.username
             })
 
         }catch(err){
@@ -83,32 +83,43 @@ class Profile extends Component{
             return err;
         }
     }
+    deleteBook = async (id)=>{
+        const response = await fetch(`http://localhost:9000/users/books/${id}`, {
+            method: 'DELETE',
+            credentials: 'include'
+        })
+        if(!response.ok){
+            throw Error(response.statusText);
+        }
+        const parsed = await response.json();
+        this.setState({
+            user: parsed.data
+        })
+        this.getUser(this.state.user._id);
+    }
     componentDidMount(){
         this.getUser(this.state.user._id);
     }
     render(){
-        console.log(this.state, ' profile state');
+        console.log(this.state, '  state from profile');
         const likedBooks = this.state.userData.length === 0 ? 'None' : this.state.userData.data.likedBooks.map((book)=>{
             return(
-                <ul key={book._id}>
+                <ul key={book._id} className="liked-books">
                     <li><img src={book.image} alt={book.image}/></li>
                     <li>{book.title}</li>
-                    <li>{book.author}</li>
+                    <li>by: {book.author}</li>
+                    <li><button onClick={this.deleteBook.bind(null, book._id)}>Remove from Favorites</button></li>
                 </ul>
-                
-                
             )
         });
         return(
             <div>
-                <h1>Your Profile</h1>
+                <h1>{this.state.username}'s Profile</h1>
                 <button onClick={this.showModal} >Edit Profile</button>
                 {this.state.showModal ? <EditUser editUser={this.editUser} handleEditInput={this.handleEditInput} username={this.state.username} newUsername={this.state.newUsername}/> : null}
                 <button onClick={this.deleteUser.bind(null, this.state.user._id)} >Delete your Account</button>
-                <ul>
-                    <li>Username: {this.state.username}</li>
-                    <li>Liked Books: {likedBooks} </li>
-                </ul>
+                <h3>Your Favorite Books</h3>  <br/> 
+                {likedBooks}
                 
                 
 

@@ -25,6 +25,27 @@ class BooksInDatabase extends Component{
             return err;
         }
     }
+    addBook = async (data)=>{
+        try{
+            console.log(data);
+            const response = await fetch(`http://localhost:9000/books`, {
+                method: "POST",
+                credentials: 'include',
+                body: JSON.stringify(data),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            if(!response.ok){
+                throw Error(response.statusText);
+            }
+            const parsed = await response.json();
+            console.log('added ', parsed, ' to database');
+        }catch(err){
+            console.log(err);
+            return err;
+        }
+    }
     deleteBook = async (id)=>{
         try{
             const response = await fetch(`http://localhost:9000/books/${id}`, {
@@ -55,7 +76,9 @@ class BooksInDatabase extends Component{
                      <br/>
                     {book.title} <br/>
                     by: {book.author} <br/>
-                    <button onClick={this.deleteBook.bind(null, book._id)}>Delete book from database</button>
+                    <button onClick={this.addBook.bind(null, book)} >Add book to favorites</button><br/>
+                    <button onClick={this.deleteBook.bind(null, book._id)}>Delete book from database</button> 
+                    
                 </li>
             )
         })

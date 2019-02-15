@@ -29,6 +29,27 @@ router.route('/')
         }
     })
 
+router.route('/books/:id')
+    .delete(async (req,res)=>{
+        try{
+            const foundUser = await User.findById(req.session.userId);
+            if(foundUser){
+                foundUser.likedBooks = foundUser.likedBooks.filter(bookId => bookId.toString() !== req.params.id.toString())
+                await foundUser.save();
+                res.json({
+                    status: 200,
+                    data: foundUser
+                })
+                console.log(foundUser, '   foundUser from server')
+            }else{
+                console.log('user not found')
+            }
+            
+        }catch(err){
+            res.send(err);
+        }
+    })
+
 router.route('/:id')
     .get(async (req,res)=>{
         try{
@@ -37,7 +58,6 @@ router.route('/:id')
                 status: 200,
                 data: foundUser
             })
-            console.log(req.session, '      this is session');
         }catch(err){
             res.send(err);
         }
@@ -61,10 +81,10 @@ router.route('/:id')
                 data: deletedUser
             })
         }catch(err){
-            console.log(err);
             res.send(err);
         }
     })
+
 
 
 module.exports = router;

@@ -7,7 +7,6 @@ router.route('/')
     .get(async (req,res)=>{
         try{
         const allBooks = await Book.find();
-        console.log(allBooks, ' this is all books');
         res.json({
             status: 200,
             data: allBooks

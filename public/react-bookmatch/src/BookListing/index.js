@@ -21,7 +21,7 @@ class BookListing extends Component{
                     {this.state.title} <br/>
                     <small>by {this.state.author}</small> 
                 </p>
-                <button onClick={this.handleClick}>Add book to database</button>
+                <button onClick={this.handleClick}>Add book to favorites</button>
             </div>
         )
     }
